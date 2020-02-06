@@ -64,4 +64,10 @@ app.on('ready', () => {
 })
 */
 
-require('./serial_ipc')
+const log4js = require('log4js')
+log4js.configure({
+  appenders: { ports: { type: 'file', filename: './ports.log' }, console: { type: 'console' }},
+  // categories: { default: { appenders: ['ports'], level: 'debug' }}
+  categories: { default: { appenders: ['console'], level: 'debug' }}
+})
+require('./port')

@@ -54,9 +54,11 @@
   },
   "dependencies": {
     "axios": "0.17.1",
+    "cron": "^1.8.2",
     "echarts": "^4.2.1",
     "element-ui": "2.3.4",
     "js-cookie": "^2.2.0",
+    "log4js": "^6.1.1",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "serialport": "^7.1.5",

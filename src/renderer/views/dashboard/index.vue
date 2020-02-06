@@ -2,6 +2,7 @@
   <div class="dashboard-container">
     <div class="dashboard-text">name:{{name}}</div>
     <div class="dashboard-text">roles:<span v-for='role in roles' :key='role'>{{role}}</span></div>
+    <div class="dashboard-text">port:{{port}}</div>
     <div class="dashboard-text">info:{{info}}</div>
   </div>
 </template>
@@ -20,17 +21,31 @@ export default {
   },
   data() {
     return {
+      port: '',
       info: ''
     }
   },
+  methods: {
+    view_ports() {
+      this.listLoading = true
+    },
+    port_cache() {
+      ipcRenderer.send('port_cache', 'index.vue')
+    },
+    port_init() {
+      ipcRenderer.on('port_cache', (event, arg) => {
+        console.log(arg)
+        this.info = arg
+      })
+      ipcRenderer.on('port_ports', (event, arg) => {
+        console.log(arg)
+        this.port = arg
+      })
+      setInterval(this.port_cache, 1000)
+    }
+  },
   created: function() {
-    console.log(this.info)
-    console.log(ipcRenderer.sendSync('synchronous-message', 'ping'))
-    ipcRenderer.on('asynchronous-reply', (event, arg) => {
-      console.log(arg, this.info)
-      this.info = arg
-    })
-    ipcRenderer.send('asynchronous-message', 'ping')
+    this.port_init()
   }
 }
 
