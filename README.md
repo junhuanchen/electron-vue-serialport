@@ -1,6 +1,6 @@
 # electron-vue-serialport
 
-Update [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin) to [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) and add node-serialport example.
+Update [electron-vue-admin](https://github.com/PanJiaChen/vue-element-admin) to [vue-element-admin](https://github.com/PanJiaChen/electron-vue-admin) and add node-serialport example.
 
 ## nodejs config
 
