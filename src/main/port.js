@@ -55,51 +55,52 @@ function deal_device(data) {
 }
 
 function lock_device() {
-  SerialPort.list((err, ports) => {
-    // logger.debug(err, serial_ports)
-    if (current_device != null) {
-      logger.info('exist dev', current_device.isOpen)
-      if (current_device.isOpen === false) {
-        current_device.on('error', function(err) {
-          logger.error(err.message)
-        })
+  // logger.debug(err, serial_ports)
+  if (current_device != null) {
+    logger.info('exist dev', current_device.isOpen)
+    if (current_device.isOpen === false) {
+      logger.info('remove dev')
+      parser.removeListener('data', deal_device)
+      current_device = null
+    } else {
+      logger.info('ready dev')
 
-        current_device.pipe(parser)
-
-        parser.on('data', function(data) {
-          deal_device(data)
-        })
-
-        current_device.open(function(err) {
-          if (err) {
-            return logger.error('Error opening port: ', err.message)
-          }
-          logger.info('dev connected')
-        })
-      } else {
-        logger.info('ready dev')
-
-        current_device.write('unit_test\n' + Date.now().toString() + ';', function(err) {
-          if (err) {
-            return logger.error('Error on write: ', err.message)
-          }
-          logger.info('write dev')
-        })
-      }
-    } else if (err == null) {
-      logger.info('find dev')
-      ports.forEach(element => {
-        if (element['vendorId'] === '1A86' && element['productId'] === '7523') {
-          current_device = new SerialPort(element['comName'], { autoOpen: false })
-          logger.info('commit dev')
-          throw new Error('commit dev')
+      current_device.write('unit_test\n' + Date.now().toString() + ';', function(err) {
+        if (err) {
+          return logger.error('Error on write: ', err.message)
         }
+        logger.info('write dev')
       })
     }
-  })
+  } else {
+    SerialPort.list((err, ports) => {
+      if (err == null) {
+        logger.info('find dev')
+        ports.forEach(element => {
+          if (element['vendorId'] === '1A86' && element['productId'] === '7523') {
+            current_device = new SerialPort(element['comName'], () => {
+              if (current_device.isOpen === true) {
+                logger.info('dev connected')
+                current_device.pipe(parser)
+                parser.on('data', deal_device)
+                current_device.on('error', function(err) {
+                  logger.error(err.message)
+                })
+              } else {
+                logger.info('dev is busy')
+                current_device = null
+              }
+            })
+            logger.info('commit dev')
+            throw new Error('commit dev')
+          }
+        })
+      }
+    })
+  }
 }
 
-var job_view_serial = new CronJob('*/2 * * * * *', function() {
+var job_view_serial = new CronJob('*/5 * * * * *', function() {
   logger.debug(lock_device, lock_device())
 })
 

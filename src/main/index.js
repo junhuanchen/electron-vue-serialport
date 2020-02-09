@@ -18,7 +18,7 @@ function createWindow() {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 960,
+    height: 800,
     useContentSize: true,
     width: 1280
   })
@@ -64,10 +64,10 @@ app.on('ready', () => {
 })
 */
 
-const log4js = require('log4js')
-log4js.configure({
-  appenders: { ports: { type: 'file', filename: './ports.log' }, console: { type: 'console' }},
-  // categories: { default: { appenders: ['ports'], level: 'debug' }}
-  categories: { default: { appenders: ['console'], level: 'debug' }}
-})
-require('./port')
+// const log4js = require('log4js')
+// log4js.configure({
+//   appenders: { ports: { type: 'file', filename: './ports.log' }, console: { type: 'console' }},
+//   // categories: { default: { appenders: ['ports'], level: 'debug' }}
+//   categories: { default: { appenders: ['console'], level: 'debug' }}
+// })
+// require('./port')
