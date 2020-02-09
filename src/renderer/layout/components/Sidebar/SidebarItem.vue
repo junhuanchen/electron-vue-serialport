@@ -60,9 +60,9 @@ export default {
     this.onlyOneChild = null
     return {}
   },
-  created() {
-    console.log(location.pathname)
-  },
+  // created() {
+  //   console.log(location.pathname)
+  // },
   methods: {
     hasOneShowingChild(children = [], parent) {
       // console.log(children, parent)
