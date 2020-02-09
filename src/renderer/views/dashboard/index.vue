@@ -1,64 +1,31 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name:{{name}}</div>
-    <div class="dashboard-text">roles:<span v-for='role in roles' :key='role'>{{role}}</span></div>
-    <div class="dashboard-text">port:{{port}}</div>
-    <div class="dashboard-text">info:{{info}}</div>
+    <component :is="currentRole" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import { ipcRenderer } from 'electron'
+import adminDashboard from './admin'
+import editorDashboard from './editor'
 
 export default {
-  name: 'dashboard',
+  name: 'Dashboard',
+  components: { adminDashboard, editorDashboard },
+  data() {
+    return {
+      currentRole: 'adminDashboard'
+    }
+  },
   computed: {
     ...mapGetters([
-      'name',
       'roles'
     ])
   },
-  data() {
-    return {
-      port: '',
-      info: ''
+  created() {
+    if (!this.roles.includes('admin')) {
+      this.currentRole = 'editorDashboard'
     }
-  },
-  methods: {
-    view_ports() {
-      this.listLoading = true
-    },
-    port_cache() {
-      ipcRenderer.send('port_cache', 'index.vue')
-    },
-    port_init() {
-      ipcRenderer.on('port_cache', (event, arg) => {
-        console.log(arg)
-        this.info = arg
-      })
-      ipcRenderer.on('port_ports', (event, arg) => {
-        console.log(arg)
-        this.port = arg
-      })
-      setInterval(this.port_cache, 1000)
-    }
-  },
-  created: function() {
-    this.port_init()
   }
 }
-
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
-</style>
