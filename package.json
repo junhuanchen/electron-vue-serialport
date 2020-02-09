@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "axios": "0.17.1",
+    "clipboard": "^2.0.4",
     "codemirror": "^5.51.0",
     "cron": "^1.8.2",
     "driver.js": "^0.9.8",
