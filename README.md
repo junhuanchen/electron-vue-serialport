@@ -1,5 +1,8 @@
 # electron-vue-serialport
- base electron-vue-admin to electron-vue-serialport
+
+Update [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin) to [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin) and add node-serialport example.
+
+## nodejs config
 
 node -v 10.13.0
 
