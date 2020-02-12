@@ -16,7 +16,7 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "postinstall": "npm run lint:fix"
+    "postinstall": "npm run lint:fix && electron-builder install-app-deps"
   },
   "build": {
     "productName": "electron-vue-admin",
@@ -69,6 +69,8 @@
     "mockjs": "^1.1.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
+    "pouchdb-browser": "^7.1.1",
+    "pouchdb-find": "^7.1.1",
     "screenfull": "^5.0.1",
     "serialport": "^7.1.5",
     "sortablejs": "^1.10.2",
