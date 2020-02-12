@@ -14,6 +14,11 @@ Update [electron-vue-admin](https://github.com/PanJiaChen/vue-element-admin) to 
 
 ![](/readme/serialport.png)
 
+## branches
+
+- electron-vue-offline
+- vue-admin-template
+- vue-element-admin
 
 ## remove
 
