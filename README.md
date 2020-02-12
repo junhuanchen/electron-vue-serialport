@@ -16,9 +16,9 @@ Update [electron-vue-admin](https://github.com/PanJiaChen/vue-element-admin) to 
 
 ## branches
 
-- electron-vue-offline
+- vue-element-admin (master)
 - vue-admin-template
-- vue-element-admin
+- electron-vue-offline (self)
 
 ## remove
 
