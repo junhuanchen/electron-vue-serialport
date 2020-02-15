@@ -1,9 +1,9 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+// import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
 const state = {
-  token: getToken(),
+  token: null,
   name: '',
   avatar: '',
   introduction: '',
@@ -36,7 +36,7 @@ const actions = {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        // setToken(data.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -78,7 +78,7 @@ const actions = {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
-        removeToken()
+        // removeToken()
         resetRouter()
 
         // reset visited views and cached views
@@ -97,7 +97,7 @@ const actions = {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
-      removeToken()
+      // removeToken()
       resolve()
     })
   },
@@ -108,7 +108,7 @@ const actions = {
       const token = role + '-token'
 
       commit('SET_TOKEN', token)
-      setToken(token)
+      // setToken(token)
 
       const { roles } = await dispatch('getInfo')
 
