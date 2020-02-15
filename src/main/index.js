@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, globalShortcut } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -24,6 +24,10 @@ function createWindow() {
   })
 
   mainWindow.loadURL(winURL)
+
+  globalShortcut.register('CmdOrCtrl+Shift+d', () => {
+    mainWindow.webContents.toggleDevTools()
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null
