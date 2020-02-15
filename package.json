@@ -67,10 +67,9 @@
     "jszip": "^3.2.2",
     "log4js": "^6.1.1",
     "mockjs": "^1.1.0",
+    "nedb": "^1.8.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
-    "pouchdb-browser": "^7.1.1",
-    "pouchdb-find": "^7.1.1",
     "screenfull": "^5.0.1",
     "serialport": "^7.1.5",
     "sortablejs": "^1.10.2",
@@ -81,6 +80,7 @@
     "vue-splitpane": "^1.0.6",
     "vuedraggable": "^2.23.2",
     "vuex": "3.0.1",
+    "vuex-persistedstate": "^2.7.1",
     "xlsx": "^0.15.5"
   },
   "devDependencies": {
