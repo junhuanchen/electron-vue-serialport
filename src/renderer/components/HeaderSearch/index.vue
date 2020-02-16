@@ -104,7 +104,7 @@ export default {
         if (router.hidden) { continue }
 
         const data = {
-          path: path.resolve(basePath, router.path),
+          path: path.posix.join(basePath, router.path),
           title: [...prefixTitle]
         }
 
