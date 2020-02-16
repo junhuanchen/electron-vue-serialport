@@ -26,7 +26,8 @@ const store = new Vuex.Store({
       'user.token',
       'app.sidebar',
       'app.size',
-      'app.device'
+      'app.device',
+      'settings'
     ]
   })]
 })
