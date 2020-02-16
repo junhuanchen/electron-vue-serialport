@@ -1,21 +1,16 @@
 <template>
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
+    <div class="container-drag"><p>&ensp;</p></div>
     <div class="right-menu">
       <template v-if="device!=='mobile'">
-        <search id="header-search" class="right-menu-item" />
-
         <error-log class="errLog-container right-menu-item hover-effect" />
-
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
-
         <el-tooltip content="Global Size" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip>
-
+        <search id="header-search" class="right-menu-item" />
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -105,6 +100,17 @@ export default {
 
   .breadcrumb-container {
     float: left;
+  }
+
+  .container-drag {
+    position:absolute;
+	  z-index:-1;
+    left:25%; 
+    right:20%;
+    // line-height: 50px;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    // background-color: gray;
   }
 
   .errLog-container {
