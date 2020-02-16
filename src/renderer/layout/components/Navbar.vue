@@ -1,19 +1,10 @@
 <template>
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" style="-webkit-app-region: drag;"/>
     <div class="container-drag"><p>&ensp;</p></div>
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <error-log class="errLog-container right-menu-item hover-effect" />
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
-        <el-tooltip content="Global Size" effect="dark" placement="bottom">
-          <size-select id="size-select" class="right-menu-item hover-effect" />
-        </el-tooltip>
-        <search id="header-search" class="right-menu-item" />
-      </template>
-
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+      <!-- <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
@@ -35,7 +26,18 @@
             <span style="display:block;" @click="logout">Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown>
+      </el-dropdown> -->
+      <template v-if="device!=='mobile'">
+        <error-log class="errLog-container right-menu-item hover-effect" />
+        <el-tooltip content="Global Size" effect="dark" placement="bottom">
+          <size-select id="size-select" class="right-menu-item hover-effect" />
+        </el-tooltip>
+        <search id="header-search" class="right-menu-item" />
+      </template>
+      <template>
+        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <closing id="closing" class="right-menu-item hover-effect" />
+      </template>
     </div>
   </div>
 </template>
@@ -48,6 +50,7 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
+import Closing from '@/components/Closing'
 
 export default {
   components: {
@@ -56,7 +59,8 @@ export default {
     ErrorLog,
     Screenfull,
     SizeSelect,
-    Search
+    Search,
+    Closing
   },
   computed: {
     ...mapGetters([
@@ -105,7 +109,7 @@ export default {
   .container-drag {
     position:absolute;
 	  z-index:-1;
-    left:25%; 
+    left:5%; 
     right:20%;
     // line-height: 50px;
     -webkit-user-select: none;

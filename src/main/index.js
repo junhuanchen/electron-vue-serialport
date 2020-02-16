@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut } from 'electron'
+import { app, BrowserWindow, globalShortcut, ipcMain } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -48,6 +48,12 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow()
   }
+})
+
+ipcMain.on('Closing', function(event, arg) {
+})
+
+ipcMain.on('Screenfull', function(event, arg) {
 })
 
 /**
