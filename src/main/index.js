@@ -21,6 +21,7 @@ function createWindow() {
     height: 800,
     width: 1280,
     useContentSize: true,
+    show: false,
     // transparent: true,
     frame: false
   })
@@ -33,6 +34,10 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = null
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
   })
 }
 
