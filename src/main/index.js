@@ -22,7 +22,7 @@ function createWindow() {
     width: 1280,
     useContentSize: true,
     show: false,
-    // transparent: true,
+    transparent: true,
     frame: false
   })
 
@@ -57,15 +57,27 @@ app.on('activate', () => {
 
 ipcMain.on('Closing', e => mainWindow.close())
 
+let is_fullscreen = null
 ipcMain.on('Screenfull', function(event, arg) {
   // console.log(event, arg)
   switch (arg) {
     case 'toggle':
-      mainWindow.setFullScreen(!mainWindow.isFullScreen())
-      event.sender.send('Screenfull', mainWindow.isFullScreen())
+      if (is_fullscreen == null) {
+        is_fullscreen = mainWindow.getBounds()
+        mainWindow.setFullScreen(true)
+        // console.log('get', is_fullscreen)
+      } else {
+        mainWindow.setFullScreen(false)
+        mainWindow.setBounds(is_fullscreen)
+        // console.log('set', is_fullscreen)
+        is_fullscreen = null
+      }
+      // mainWindow.setFullScreen(!mainWindow.isFullScreen())
+      // event.sender.send('Screenfull', mainWindow.isFullScreen())
+      event.sender.send('Screenfull', is_fullscreen === null)
       break
     case 'isfull':
-      event.sender.send('Screenfull', mainWindow.isFullScreen())
+      event.sender.send('Screenfull', is_fullscreen === null)
       break
   }
 })
