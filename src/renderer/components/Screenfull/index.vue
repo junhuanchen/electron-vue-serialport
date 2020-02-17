@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import screenfull from 'screenfull'
+import { ipcRenderer } from 'electron'
 
 export default {
   name: 'Screenfull',
@@ -17,32 +17,16 @@ export default {
   mounted() {
     this.init()
   },
-  beforeDestroy() {
-    this.destroy()
-  },
   methods: {
     click() {
-      if (!screenfull.enabled) {
-        this.$message({
-          message: 'you browser can not work',
-          type: 'warning'
-        })
-        return false
-      }
-      screenfull.toggle()
-    },
-    change() {
-      this.isFullscreen = screenfull.isFullscreen
+      ipcRenderer.send('Screenfull', 'toggle')
     },
     init() {
-      if (screenfull.enabled) {
-        screenfull.on('change', this.change)
-      }
-    },
-    destroy() {
-      if (screenfull.enabled) {
-        screenfull.off('change', this.change)
-      }
+      ipcRenderer.on('isfull', (event, arg) => {
+        console.log(arg === 'true', this.isFullscreen)
+        this.isFullscreen = arg === 'true'
+      })
+      ipcRenderer.send('Screenfull', 'isfull')
     }
   }
 }

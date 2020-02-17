@@ -50,10 +50,19 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('Closing', function(event, arg) {
-})
+ipcMain.on('Closing', e => mainWindow.close())
 
 ipcMain.on('Screenfull', function(event, arg) {
+  // console.log(event, arg)
+  switch (arg) {
+    case 'toggle':
+      mainWindow.setFullScreen(!mainWindow.isFullScreen())
+      event.sender.send('Screenfull', mainWindow.isFullScreen())
+      break
+    case 'isfull':
+      event.sender.send('Screenfull', mainWindow.isFullScreen())
+      break
+  }
 })
 
 /**
